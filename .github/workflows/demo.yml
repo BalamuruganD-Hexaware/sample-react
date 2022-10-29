@@ -22,11 +22,14 @@ jobs:
       script-file: ${{ steps.publish.outputs.filename }}
     steps:
       - name: Get code
-        # outputs:
         uses: actions/checkout@v3
+      - name: cache dependencies
+        uses: @action/cache
+        with:
+          paths: ~/.npm
+          key: deps-node-modules-${{ hashFile('**/package-lock.json') }}        
       - name: Install dependencies
         run: npm ci
-        id: install
       - name: Build website
         run: npm run build
       - name: publish index.js file
