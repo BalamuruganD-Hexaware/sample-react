@@ -11,13 +11,21 @@ on:
       password:
         description: sensitive
         required: true
+    outputs:
+      result:
+        description: output of the workflow
+        value: ${{ jobs.deploy.outputs.job-result }}
 jobs: 
   deploy:
     runs-on: ubuntu-latest
+    outputs:
+      job-result: ${{ steps.get-step-output.outputs.step-result }}
     steps:
       - name: Output information
+        id: get-step-output
         run: |
           echo "${{ inputs.value }}"
           echo "${{ secrets.password }}"
+          echo ::set-output name=step-result::success
 
       

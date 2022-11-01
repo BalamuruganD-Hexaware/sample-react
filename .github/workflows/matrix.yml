@@ -8,11 +8,11 @@ jobs:
         runners: [ubuntu-latest, windows-latest]
         node-versions: [12,14,16]
         include:
-          - node-versions: 18
+          - node-versions: 16
             runners: ubuntu-latest
         exclude:
-          - node-versions: 12
-            runners: windows-latest
+          - node-versions: [12, 14, 16]
+            runners: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.runners }}
     steps:
       - name: Get code
@@ -32,3 +32,9 @@ jobs:
       value: hi mom
     secrets:
       password: bazinga
+  print-result:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: step 1
+        run: echo ${{ needs.deploy.outputs.result }}
