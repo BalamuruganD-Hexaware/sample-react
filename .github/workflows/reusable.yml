@@ -1,9 +1,24 @@
 name: Reusable workflow
-on: workflow_call
+on: 
+  workflow_call:
+    inputs:
+      value:
+        description: sample value
+        required: false
+        default: hi
+        type: string
+    secrets:
+      password:
+        description: sensitive
+        required: true
+        type: string
 jobs: 
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Output information
-        run: echo "Hi mom"
+        run: |
+          echo "${{ inputs.value }}"
+          echo "${{ secrets.password }}"
+
       

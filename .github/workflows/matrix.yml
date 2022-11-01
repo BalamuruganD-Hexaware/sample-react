@@ -28,3 +28,7 @@ jobs:
   deploy:
     needs: build
     uses: ./.github/workflows/reusable.yml
+    with:
+      value: hi mom
+    secrets:
+      password: bazinga
