@@ -7,6 +7,12 @@ jobs:
       matrix:
         runners: [ubuntu-latest, windows-latest]
         node-versions: [12,14,16]
+        include:
+          - node-versions: 18
+            runners: ubuntu-latest
+        exclude:
+          - node-versions: 12
+            runners: windows-latest
     runs-on: ${{ matrix.runners }}
     steps:
       - name: Get code
@@ -19,3 +25,6 @@ jobs:
         run: npm ci
       - name: build
         run: npm run build
+  deploy:
+    needs: build
+    uses: ./.github/workflows/reuable.yml
