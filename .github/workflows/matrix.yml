@@ -27,4 +27,4 @@ jobs:
         run: npm run build
   deploy:
     needs: build
-    uses: ./.github/workflows/reuable.yml
+    uses: ./.github/workflows/reusable.yml
